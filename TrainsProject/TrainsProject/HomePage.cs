@@ -12,6 +12,8 @@ namespace TrainsProject
 {
     public partial class HomePage : Form
     {
+        private int currentMoney = 500;
+        private string YesorNoResponse;
         public HomePage()
         {
             InitializeComponent();
@@ -19,7 +21,14 @@ namespace TrainsProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            CurrentMoneyTextBox.Text = "Current Money: $" + currentMoney;
+        }
 
+        private void buyStationButton_Click(object sender, EventArgs e)
+        {
+            ConsoleTextBox.Text += "Do you want to buy a Station for $100?";
+            
         }
     }
+
 }

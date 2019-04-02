@@ -35,6 +35,7 @@
             this.ConsoleTextBox = new System.Windows.Forms.TextBox();
             this.stationTable = new System.Windows.Forms.TableLayoutPanel();
             this.trainTable = new System.Windows.Forms.TableLayoutPanel();
+            this.userInputTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // stationMapTable
@@ -68,17 +69,18 @@
             // 
             // buyStationButton
             // 
-            this.buyStationButton.ForeColor = System.Drawing.Color.Black;
+            this.buyStationButton.ForeColor = System.Drawing.Color.Purple;
             this.buyStationButton.Location = new System.Drawing.Point(12, 449);
             this.buyStationButton.Name = "buyStationButton";
             this.buyStationButton.Size = new System.Drawing.Size(137, 51);
             this.buyStationButton.TabIndex = 1;
             this.buyStationButton.Text = "Buy Stations";
             this.buyStationButton.UseVisualStyleBackColor = true;
+            this.buyStationButton.Click += new System.EventHandler(this.buyStationButton_Click);
             // 
             // buyTrainsButton
             // 
-            this.buyTrainsButton.ForeColor = System.Drawing.Color.Black;
+            this.buyTrainsButton.ForeColor = System.Drawing.Color.Purple;
             this.buyTrainsButton.Location = new System.Drawing.Point(12, 506);
             this.buyTrainsButton.Name = "buyTrainsButton";
             this.buyTrainsButton.Size = new System.Drawing.Size(137, 51);
@@ -98,6 +100,7 @@
             // 
             // ConsoleTextBox
             // 
+            this.ConsoleTextBox.ForeColor = System.Drawing.Color.Purple;
             this.ConsoleTextBox.Location = new System.Drawing.Point(435, 454);
             this.ConsoleTextBox.Multiline = true;
             this.ConsoleTextBox.Name = "ConsoleTextBox";
@@ -133,11 +136,21 @@
             this.trainTable.Size = new System.Drawing.Size(920, 137);
             this.trainTable.TabIndex = 6;
             // 
-            // Form1
+            // userInputTextBox
+            // 
+            this.userInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userInputTextBox.ForeColor = System.Drawing.Color.Purple;
+            this.userInputTextBox.Location = new System.Drawing.Point(155, 508);
+            this.userInputTextBox.Name = "userInputTextBox";
+            this.userInputTextBox.Size = new System.Drawing.Size(258, 49);
+            this.userInputTextBox.TabIndex = 7;
+            // 
+            // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1367, 771);
+            this.Controls.Add(this.userInputTextBox);
             this.Controls.Add(this.trainTable);
             this.Controls.Add(this.stationTable);
             this.Controls.Add(this.ConsoleTextBox);
@@ -146,7 +159,7 @@
             this.Controls.Add(this.buyStationButton);
             this.Controls.Add(this.stationMapTable);
             this.ForeColor = System.Drawing.Color.White;
-            this.Name = "Form1";
+            this.Name = "HomePage";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -163,6 +176,7 @@
         private System.Windows.Forms.TextBox ConsoleTextBox;
         private System.Windows.Forms.TableLayoutPanel stationTable;
         private System.Windows.Forms.TableLayoutPanel trainTable;
+        private System.Windows.Forms.TextBox userInputTextBox;
     }
 }
 
