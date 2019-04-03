@@ -33,9 +33,12 @@
             this.buyTrainsButton = new System.Windows.Forms.Button();
             this.CurrentMoneyTextBox = new System.Windows.Forms.TextBox();
             this.ConsoleTextBox = new System.Windows.Forms.TextBox();
-            this.stationTable = new System.Windows.Forms.TableLayoutPanel();
             this.trainTable = new System.Windows.Forms.TableLayoutPanel();
-            this.userInputTextBox = new System.Windows.Forms.TextBox();
+            this.YesButton = new System.Windows.Forms.Button();
+            this.NoButton = new System.Windows.Forms.Button();
+            this.stationTable = new System.Windows.Forms.TableLayoutPanel();
+            this.namingTextBox = new System.Windows.Forms.TextBox();
+            this.namingSubmit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // stationMapTable
@@ -91,11 +94,12 @@
             // CurrentMoneyTextBox
             // 
             this.CurrentMoneyTextBox.BackColor = System.Drawing.Color.Purple;
-            this.CurrentMoneyTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentMoneyTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CurrentMoneyTextBox.ForeColor = System.Drawing.Color.White;
             this.CurrentMoneyTextBox.Location = new System.Drawing.Point(155, 449);
+            this.CurrentMoneyTextBox.Multiline = true;
             this.CurrentMoneyTextBox.Name = "CurrentMoneyTextBox";
-            this.CurrentMoneyTextBox.Size = new System.Drawing.Size(262, 49);
+            this.CurrentMoneyTextBox.Size = new System.Drawing.Size(258, 53);
             this.CurrentMoneyTextBox.TabIndex = 3;
             // 
             // ConsoleTextBox
@@ -106,19 +110,6 @@
             this.ConsoleTextBox.Name = "ConsoleTextBox";
             this.ConsoleTextBox.Size = new System.Drawing.Size(924, 162);
             this.ConsoleTextBox.TabIndex = 4;
-            // 
-            // stationTable
-            // 
-            this.stationTable.ColumnCount = 2;
-            this.stationTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.Location = new System.Drawing.Point(12, 563);
-            this.stationTable.Name = "stationTable";
-            this.stationTable.RowCount = 2;
-            this.stationTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.Size = new System.Drawing.Size(405, 196);
-            this.stationTable.TabIndex = 5;
             // 
             // trainTable
             // 
@@ -136,21 +127,72 @@
             this.trainTable.Size = new System.Drawing.Size(920, 137);
             this.trainTable.TabIndex = 6;
             // 
-            // userInputTextBox
+            // YesButton
             // 
-            this.userInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userInputTextBox.ForeColor = System.Drawing.Color.Purple;
-            this.userInputTextBox.Location = new System.Drawing.Point(155, 508);
-            this.userInputTextBox.Name = "userInputTextBox";
-            this.userInputTextBox.Size = new System.Drawing.Size(258, 49);
-            this.userInputTextBox.TabIndex = 7;
+            this.YesButton.ForeColor = System.Drawing.Color.Purple;
+            this.YesButton.Location = new System.Drawing.Point(155, 506);
+            this.YesButton.Name = "YesButton";
+            this.YesButton.Size = new System.Drawing.Size(137, 51);
+            this.YesButton.TabIndex = 7;
+            this.YesButton.Text = "Yes";
+            this.YesButton.UseVisualStyleBackColor = true;
+            this.YesButton.Click += new System.EventHandler(this.YesButton_Click);
+            // 
+            // NoButton
+            // 
+            this.NoButton.ForeColor = System.Drawing.Color.Purple;
+            this.NoButton.Location = new System.Drawing.Point(298, 506);
+            this.NoButton.Name = "NoButton";
+            this.NoButton.Size = new System.Drawing.Size(115, 51);
+            this.NoButton.TabIndex = 8;
+            this.NoButton.Text = "No";
+            this.NoButton.UseVisualStyleBackColor = true;
+            this.NoButton.Click += new System.EventHandler(this.NoButton_Click);
+            // 
+            // stationTable
+            // 
+            this.stationTable.ColumnCount = 2;
+            this.stationTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.stationTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.stationTable.Location = new System.Drawing.Point(12, 622);
+            this.stationTable.Name = "stationTable";
+            this.stationTable.RowCount = 2;
+            this.stationTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.stationTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.stationTable.Size = new System.Drawing.Size(401, 137);
+            this.stationTable.TabIndex = 5;
+            // 
+            // namingTextBox
+            // 
+            this.namingTextBox.BackColor = System.Drawing.Color.Purple;
+            this.namingTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.namingTextBox.ForeColor = System.Drawing.Color.White;
+            this.namingTextBox.Location = new System.Drawing.Point(12, 563);
+            this.namingTextBox.Multiline = true;
+            this.namingTextBox.Name = "namingTextBox";
+            this.namingTextBox.Size = new System.Drawing.Size(280, 53);
+            this.namingTextBox.TabIndex = 9;
+            // 
+            // namingSubmit
+            // 
+            this.namingSubmit.ForeColor = System.Drawing.Color.Purple;
+            this.namingSubmit.Location = new System.Drawing.Point(298, 563);
+            this.namingSubmit.Name = "namingSubmit";
+            this.namingSubmit.Size = new System.Drawing.Size(115, 51);
+            this.namingSubmit.TabIndex = 10;
+            this.namingSubmit.Text = "Submit";
+            this.namingSubmit.UseVisualStyleBackColor = true;
+            this.namingSubmit.Click += new System.EventHandler(this.namingSubmit_Click);
             // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1367, 771);
-            this.Controls.Add(this.userInputTextBox);
+            this.Controls.Add(this.namingSubmit);
+            this.Controls.Add(this.namingTextBox);
+            this.Controls.Add(this.NoButton);
+            this.Controls.Add(this.YesButton);
             this.Controls.Add(this.trainTable);
             this.Controls.Add(this.stationTable);
             this.Controls.Add(this.ConsoleTextBox);
@@ -174,9 +216,12 @@
         private System.Windows.Forms.Button buyTrainsButton;
         private System.Windows.Forms.TextBox CurrentMoneyTextBox;
         private System.Windows.Forms.TextBox ConsoleTextBox;
-        private System.Windows.Forms.TableLayoutPanel stationTable;
         private System.Windows.Forms.TableLayoutPanel trainTable;
-        private System.Windows.Forms.TextBox userInputTextBox;
+        private System.Windows.Forms.Button YesButton;
+        private System.Windows.Forms.Button NoButton;
+        private System.Windows.Forms.TableLayoutPanel stationTable;
+        private System.Windows.Forms.TextBox namingTextBox;
+        private System.Windows.Forms.Button namingSubmit;
     }
 }
 
