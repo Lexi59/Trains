@@ -14,6 +14,7 @@ namespace TrainsProject
             Name = name;
             TrainCurrentLocation = 0;
             Holding = new Package[TrainCapacity];
+            
         }
 
         //fields

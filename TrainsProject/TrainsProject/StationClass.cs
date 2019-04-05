@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TrainsProject
 {
@@ -14,7 +16,7 @@ namespace TrainsProject
             StationLocation = randomnumber.Next(0, mapSize + 1);    //TODO: deal with overlapping stations
             Name = name;
             PackagesWaiting = new Package[StationCapacity];
-
+            
         }
         //fields
         public string Name;

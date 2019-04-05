@@ -15,6 +15,7 @@ namespace TrainsProject
         private int currentMoney = 500;
         private string state = null;
         private int costOfStation = 100;
+        private int costoftrain = 25;
         List<Station> currentStations = new List<Station>();
         List<Train> currentTrains = new List<Train>();
 
@@ -25,18 +26,25 @@ namespace TrainsProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            currentStations.Add(new Station("Headquarters"));
-            currentTrains.Add(new Train("Thomas"));
             updateMoneyBox();
+            stationMapGrid.Rows.Add(10);
         }
+
         private void updateMoneyBox()
         {
             CurrentMoneyTextBox.Text = "Current Money: $" + currentMoney;
         }
+
         private void buyStationButton_Click(object sender, EventArgs e)
         {
             ConsoleTextBox.Text = "Do you want to buy a Station for $" + costOfStation + "?";
             state = "BuyStation";
+        }
+
+        private void buyTrainsButton_Click(object sender, EventArgs e)
+        {
+            ConsoleTextBox.Text = "Do you want to buy a train for $" + costoftrain + "?";
+            state = "BuyTrain";
         }
 
         private void YesButton_Click(object sender, EventArgs e)
@@ -50,6 +58,13 @@ namespace TrainsProject
                     updateMoneyBox();
                     state = "nameStation";
                 }
+                if (state == "BuyTrain")
+                {
+                    ConsoleTextBox.Text = "You clicked yes! We bought you a Train. Please enter a name for it:";
+                    currentMoney -= costoftrain;
+                    updateMoneyBox();
+                    state = "nameTrain";
+                }
             }
         }
 
@@ -58,6 +73,10 @@ namespace TrainsProject
             if(state == "BuyStation")
             {
                 ConsoleTextBox.Text = "Station purchase cancelled";
+            }
+            if (state == "BuyTrain")
+            {
+                ConsoleTextBox.Text = "Train purchase cancelled";
             }
             state = null;
         }
@@ -74,9 +93,23 @@ namespace TrainsProject
                 currentStations.Add(new Station(namingTextBox.Text.Trim()));
                 ConsoleTextBox.Text = "Awesome! We named your new station: " + namingTextBox.Text.Trim();
                 namingTextBox.Text = null;
+                state = null; 
+            }
+            if (state == "nameTrain")
+            {
+                if (string.IsNullOrEmpty(namingTextBox.Text.Trim()))
+                {
+                    ConsoleTextBox.Text = "Sorry! You have to give it a name!";
+                    return;
+                }
+                currentTrains.Add(new Train(namingTextBox.Text.Trim()));
+                ConsoleTextBox.Text = "Awesome! We named your new Train: " + namingTextBox.Text.Trim();
+                namingTextBox.Text = null;
                 state = null;
             }
         }
+
+
     }
 
 }

@@ -28,47 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.stationMapTable = new System.Windows.Forms.TableLayoutPanel();
             this.buyStationButton = new System.Windows.Forms.Button();
             this.buyTrainsButton = new System.Windows.Forms.Button();
             this.CurrentMoneyTextBox = new System.Windows.Forms.TextBox();
             this.ConsoleTextBox = new System.Windows.Forms.TextBox();
-            this.trainTable = new System.Windows.Forms.TableLayoutPanel();
             this.YesButton = new System.Windows.Forms.Button();
             this.NoButton = new System.Windows.Forms.Button();
-            this.stationTable = new System.Windows.Forms.TableLayoutPanel();
             this.namingTextBox = new System.Windows.Forms.TextBox();
             this.namingSubmit = new System.Windows.Forms.Button();
+            this.stationMapGrid = new System.Windows.Forms.DataGridView();
+            this.A = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.C = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.D = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.E = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.F = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.G = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.H = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.I = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.J = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.stationMapGrid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // stationMapTable
-            // 
-            this.stationMapTable.ColumnCount = 10;
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.Location = new System.Drawing.Point(12, 12);
-            this.stationMapTable.Name = "stationMapTable";
-            this.stationMapTable.RowCount = 10;
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.stationMapTable.Size = new System.Drawing.Size(1347, 431);
-            this.stationMapTable.TabIndex = 0;
             // 
             // buyStationButton
             // 
@@ -90,6 +70,7 @@
             this.buyTrainsButton.TabIndex = 2;
             this.buyTrainsButton.Text = "Buy Trains";
             this.buyTrainsButton.UseVisualStyleBackColor = true;
+            this.buyTrainsButton.Click += new System.EventHandler(this.buyTrainsButton_Click);
             // 
             // CurrentMoneyTextBox
             // 
@@ -110,22 +91,6 @@
             this.ConsoleTextBox.Name = "ConsoleTextBox";
             this.ConsoleTextBox.Size = new System.Drawing.Size(924, 162);
             this.ConsoleTextBox.TabIndex = 4;
-            // 
-            // trainTable
-            // 
-            this.trainTable.ColumnCount = 5;
-            this.trainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.trainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.trainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.trainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.trainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.trainTable.Location = new System.Drawing.Point(435, 622);
-            this.trainTable.Name = "trainTable";
-            this.trainTable.RowCount = 2;
-            this.trainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.trainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.trainTable.Size = new System.Drawing.Size(920, 137);
-            this.trainTable.TabIndex = 6;
             // 
             // YesButton
             // 
@@ -149,19 +114,6 @@
             this.NoButton.UseVisualStyleBackColor = true;
             this.NoButton.Click += new System.EventHandler(this.NoButton_Click);
             // 
-            // stationTable
-            // 
-            this.stationTable.ColumnCount = 2;
-            this.stationTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.Location = new System.Drawing.Point(12, 622);
-            this.stationTable.Name = "stationTable";
-            this.stationTable.RowCount = 2;
-            this.stationTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.stationTable.Size = new System.Drawing.Size(401, 137);
-            this.stationTable.TabIndex = 5;
-            // 
             // namingTextBox
             // 
             this.namingTextBox.BackColor = System.Drawing.Color.Purple;
@@ -184,44 +136,120 @@
             this.namingSubmit.UseVisualStyleBackColor = true;
             this.namingSubmit.Click += new System.EventHandler(this.namingSubmit_Click);
             // 
+            // stationMapGrid
+            // 
+            this.stationMapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.stationMapGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.A,
+            this.B,
+            this.C,
+            this.D,
+            this.E,
+            this.F,
+            this.G,
+            this.H,
+            this.I,
+            this.J});
+            this.stationMapGrid.Location = new System.Drawing.Point(12, 12);
+            this.stationMapGrid.Name = "stationMapGrid";
+            this.stationMapGrid.RowTemplate.Height = 24;
+            this.stationMapGrid.Size = new System.Drawing.Size(1343, 431);
+            this.stationMapGrid.TabIndex = 11;
+            // 
+            // A
+            // 
+            this.A.HeaderText = "A";
+            this.A.Name = "A";
+            // 
+            // B
+            // 
+            this.B.HeaderText = "B";
+            this.B.Name = "B";
+            // 
+            // C
+            // 
+            this.C.HeaderText = "C";
+            this.C.Name = "C";
+            // 
+            // D
+            // 
+            this.D.HeaderText = "D";
+            this.D.Name = "D";
+            // 
+            // E
+            // 
+            this.E.HeaderText = "E";
+            this.E.Name = "E";
+            // 
+            // F
+            // 
+            this.F.HeaderText = "F";
+            this.F.Name = "F";
+            // 
+            // G
+            // 
+            this.G.HeaderText = "G";
+            this.G.Name = "G";
+            // 
+            // H
+            // 
+            this.H.HeaderText = "H";
+            this.H.Name = "H";
+            // 
+            // I
+            // 
+            this.I.HeaderText = "I";
+            this.I.Name = "I";
+            // 
+            // J
+            // 
+            this.J.HeaderText = "J";
+            this.J.Name = "J";
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1367, 771);
+            this.ClientSize = new System.Drawing.Size(1379, 630);
+            this.Controls.Add(this.stationMapGrid);
             this.Controls.Add(this.namingSubmit);
             this.Controls.Add(this.namingTextBox);
             this.Controls.Add(this.NoButton);
             this.Controls.Add(this.YesButton);
-            this.Controls.Add(this.trainTable);
-            this.Controls.Add(this.stationTable);
             this.Controls.Add(this.ConsoleTextBox);
             this.Controls.Add(this.CurrentMoneyTextBox);
             this.Controls.Add(this.buyTrainsButton);
             this.Controls.Add(this.buyStationButton);
-            this.Controls.Add(this.stationMapTable);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "HomePage";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.stationMapGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel stationMapTable;
         private System.Windows.Forms.Button buyStationButton;
         private System.Windows.Forms.Button buyTrainsButton;
         private System.Windows.Forms.TextBox CurrentMoneyTextBox;
         private System.Windows.Forms.TextBox ConsoleTextBox;
-        private System.Windows.Forms.TableLayoutPanel trainTable;
         private System.Windows.Forms.Button YesButton;
         private System.Windows.Forms.Button NoButton;
-        private System.Windows.Forms.TableLayoutPanel stationTable;
         private System.Windows.Forms.TextBox namingTextBox;
         private System.Windows.Forms.Button namingSubmit;
+        private System.Windows.Forms.DataGridView stationMapGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn A;
+        private System.Windows.Forms.DataGridViewTextBoxColumn B;
+        private System.Windows.Forms.DataGridViewTextBoxColumn C;
+        private System.Windows.Forms.DataGridViewTextBoxColumn D;
+        private System.Windows.Forms.DataGridViewTextBoxColumn E;
+        private System.Windows.Forms.DataGridViewTextBoxColumn F;
+        private System.Windows.Forms.DataGridViewTextBoxColumn G;
+        private System.Windows.Forms.DataGridViewTextBoxColumn H;
+        private System.Windows.Forms.DataGridViewTextBoxColumn I;
+        private System.Windows.Forms.DataGridViewTextBoxColumn J;
     }
 }
 
