@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Web;
 
 namespace TrainsProject
 {
@@ -16,8 +17,11 @@ namespace TrainsProject
         private string state = null;
         private int costOfStation = 100;
         private int costoftrain = 25;
+        private int costOfTrainUpgrade = 50;
+        private int capacityUpgradeAmount = 5;
         List<Station> currentStations = new List<Station>();
         List<Train> currentTrains = new List<Train>();
+        List<Control> stationMapGrid = new List<Control>();
 
         public HomePage()
         {
@@ -27,7 +31,15 @@ namespace TrainsProject
         private void Form1_Load(object sender, EventArgs e)
         {
             updateMoneyBox();
-            stationMapGrid.Rows.Add(10);
+            for (int x = 1; x<101; x++)
+            {
+                var textboxName = string.Format("textBox{0}", x);
+                var foundTextboxes = Controls.Find(textboxName, true);
+                if(foundTextboxes[0] != null)
+                {
+                    stationMapGrid.Add(foundTextboxes[0]);
+                }
+            } 
         }
 
         private void updateMoneyBox()
@@ -65,6 +77,13 @@ namespace TrainsProject
                     updateMoneyBox();
                     state = "nameTrain";
                 }
+                if (state == "UpgradeTrain")
+                {
+                    ConsoleTextBox.Text = "You clicked yes! We purchased an upgrade for you, which train would you like to use it on?";
+                    currentMoney -= costOfTrainUpgrade;
+                    updateMoneyBox();
+                    state = "UpgradeWhichTrain";
+                }
             }
         }
 
@@ -78,6 +97,10 @@ namespace TrainsProject
             {
                 ConsoleTextBox.Text = "Train purchase cancelled";
             }
+            if (state == "UpgradeTrain")
+            {
+                ConsoleTextBox.Text = "Train Upgrade cancelled";
+            }
             state = null;
         }
 
@@ -90,7 +113,10 @@ namespace TrainsProject
                     ConsoleTextBox.Text = "Sorry! You have to give it a name!";
                     return;
                 }
-                currentStations.Add(new Station(namingTextBox.Text.Trim()));
+                Station newStation = new Station(namingTextBox.Text.Trim());
+                currentStations.Add(newStation);
+                stationMapGrid[newStation.StationLocation].Visible = true;
+                stationMapGrid[newStation.StationLocation].Text = newStation.Name;
                 ConsoleTextBox.Text = "Awesome! We named your new station: " + namingTextBox.Text.Trim();
                 namingTextBox.Text = null;
                 state = null; 
@@ -107,9 +133,29 @@ namespace TrainsProject
                 namingTextBox.Text = null;
                 state = null;
             }
+            if (state == "UpgradeWhichTrain")
+            {
+                if (string.IsNullOrEmpty(namingTextBox.Text.Trim()))
+                {
+                    ConsoleTextBox.Text = "Sorry! You have to pick a train!";
+                    return;
+                }
+                var selectedTrainforUpgrade = currentTrains.Find(i => i.Name == namingTextBox.Text.Trim());
+                if(selectedTrainforUpgrade == null)
+                {
+                    ConsoleTextBox.Text = "We couldn't find a train named " + namingTextBox.Text.Trim();
+                    return;
+                }
+                selectedTrainforUpgrade.TrainCapacity += capacityUpgradeAmount;
+                ConsoleTextBox.Text = "Awesome! We have upgraded the train named " + namingTextBox.Text.Trim() + " to a capacity of " + selectedTrainforUpgrade.TrainCapacity;
+            }
         }
 
-
+        private void upgradeTrainButton_Click(object sender, EventArgs e)
+        {
+            ConsoleTextBox.Text = "Do you want to upgrade a Train for $" + costOfTrainUpgrade + "?";
+            state = "UpgradeTrain";
+        }
     }
 
 }

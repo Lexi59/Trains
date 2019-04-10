@@ -20,7 +20,7 @@ namespace TrainsProject
         //fields
         public string Name;
         public int TrainCurrentLocation;
-        static int TrainCapacity = 10;
+        public int TrainCapacity = 10;
         private Station TrainDepartureStation;
         private Station TrainDestinationStation;
         private Package[] Holding;
