@@ -20,7 +20,6 @@ namespace TrainsProject
             }
             usedLocation.Add(StationLocation); 
             Name = name;
-            PackagesWaiting = new Package[StationCapacity];
         }
         //fields
         public string Name;
@@ -28,9 +27,16 @@ namespace TrainsProject
         static List<int> usedLocation = new List<int>();
         private readonly Random randomnumber = new Random();
         public int StationLocation;
-        public Package[] PackagesWaiting;
+        public List<Package> PackagesWaiting = new List<Package>();
         static int StationCapacity = 20;
 
         //methods
+        public void addPackage(Random random)
+        {
+            if( PackagesWaiting.Count < StationCapacity)
+            {
+                PackagesWaiting.Add(new Package(random));
+            }
+        }
     }
 }

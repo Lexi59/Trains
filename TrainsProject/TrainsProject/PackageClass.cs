@@ -9,13 +9,13 @@ namespace TrainsProject
     class Package
     {
         //constructor
-        public Package()
+        public Package(Random RandomNumber)
         {
             string[] packageTypeArray = { "Toys", "Gifts", "Electronics", "Clothes", "Food" };
-            Random randomNumber = new Random();
-            int randomNumberForPackageType = randomNumber.Next(0, packageTypeArray.Length);
+            
+            int randomNumberForPackageType = RandomNumber.Next(0, packageTypeArray.Length);
             PackageType = packageTypeArray[randomNumberForPackageType];
-            PackageValue = randomNumber.Next(0, 300);
+            PackageValue = RandomNumber.Next(0, 300);
         }
         //fields
         public string PackageType;

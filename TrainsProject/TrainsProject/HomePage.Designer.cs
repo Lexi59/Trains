@@ -138,6 +138,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.upgradeTrainButton = new System.Windows.Forms.Button();
+            this.trainInfoBox = new System.Windows.Forms.ListBox();
+            this.StationInfoBox = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,7 +159,7 @@
             this.buyTrainsButton.ForeColor = System.Drawing.Color.Purple;
             this.buyTrainsButton.Location = new System.Drawing.Point(12, 506);
             this.buyTrainsButton.Name = "buyTrainsButton";
-            this.buyTrainsButton.Size = new System.Drawing.Size(63, 51);
+            this.buyTrainsButton.Size = new System.Drawing.Size(108, 51);
             this.buyTrainsButton.TabIndex = 2;
             this.buyTrainsButton.Text = "Buy Trains";
             this.buyTrainsButton.UseVisualStyleBackColor = true;
@@ -180,15 +182,15 @@
             this.ConsoleTextBox.Location = new System.Drawing.Point(435, 454);
             this.ConsoleTextBox.Multiline = true;
             this.ConsoleTextBox.Name = "ConsoleTextBox";
-            this.ConsoleTextBox.Size = new System.Drawing.Size(924, 162);
+            this.ConsoleTextBox.Size = new System.Drawing.Size(198, 164);
             this.ConsoleTextBox.TabIndex = 4;
             // 
             // YesButton
             // 
             this.YesButton.ForeColor = System.Drawing.Color.Purple;
-            this.YesButton.Location = new System.Drawing.Point(155, 506);
+            this.YesButton.Location = new System.Drawing.Point(239, 506);
             this.YesButton.Name = "YesButton";
-            this.YesButton.Size = new System.Drawing.Size(137, 51);
+            this.YesButton.Size = new System.Drawing.Size(84, 51);
             this.YesButton.TabIndex = 7;
             this.YesButton.Text = "Yes";
             this.YesButton.UseVisualStyleBackColor = true;
@@ -197,9 +199,9 @@
             // NoButton
             // 
             this.NoButton.ForeColor = System.Drawing.Color.Purple;
-            this.NoButton.Location = new System.Drawing.Point(298, 506);
+            this.NoButton.Location = new System.Drawing.Point(329, 506);
             this.NoButton.Name = "NoButton";
-            this.NoButton.Size = new System.Drawing.Size(115, 51);
+            this.NoButton.Size = new System.Drawing.Size(84, 51);
             this.NoButton.TabIndex = 8;
             this.NoButton.Text = "No";
             this.NoButton.UseVisualStyleBackColor = true;
@@ -1659,21 +1661,41 @@
             // 
             // upgradeTrainButton
             // 
-            this.upgradeTrainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.upgradeTrainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.upgradeTrainButton.ForeColor = System.Drawing.Color.Purple;
-            this.upgradeTrainButton.Location = new System.Drawing.Point(81, 508);
+            this.upgradeTrainButton.Location = new System.Drawing.Point(126, 506);
             this.upgradeTrainButton.Name = "upgradeTrainButton";
-            this.upgradeTrainButton.Size = new System.Drawing.Size(68, 51);
+            this.upgradeTrainButton.Size = new System.Drawing.Size(107, 51);
             this.upgradeTrainButton.TabIndex = 12;
             this.upgradeTrainButton.Text = "Upgrade Trains";
             this.upgradeTrainButton.UseVisualStyleBackColor = true;
             this.upgradeTrainButton.Click += new System.EventHandler(this.upgradeTrainButton_Click);
+            // 
+            // trainInfoBox
+            // 
+            this.trainInfoBox.FormattingEnabled = true;
+            this.trainInfoBox.ItemHeight = 16;
+            this.trainInfoBox.Location = new System.Drawing.Point(639, 454);
+            this.trainInfoBox.Name = "trainInfoBox";
+            this.trainInfoBox.Size = new System.Drawing.Size(347, 164);
+            this.trainInfoBox.TabIndex = 14;
+            // 
+            // StationInfoBox
+            // 
+            this.StationInfoBox.FormattingEnabled = true;
+            this.StationInfoBox.ItemHeight = 16;
+            this.StationInfoBox.Location = new System.Drawing.Point(992, 454);
+            this.StationInfoBox.Name = "StationInfoBox";
+            this.StationInfoBox.Size = new System.Drawing.Size(347, 164);
+            this.StationInfoBox.TabIndex = 15;
             // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1379, 630);
+            this.Controls.Add(this.StationInfoBox);
+            this.Controls.Add(this.trainInfoBox);
             this.Controls.Add(this.upgradeTrainButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.namingSubmit);
@@ -1806,6 +1828,8 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button upgradeTrainButton;
+        private System.Windows.Forms.ListBox trainInfoBox;
+        private System.Windows.Forms.ListBox StationInfoBox;
     }
 }
 

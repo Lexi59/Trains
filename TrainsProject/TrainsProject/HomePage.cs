@@ -13,6 +13,7 @@ namespace TrainsProject
 {
     public partial class HomePage : Form
     {
+        //variables
         private int currentMoney = 500;
         private string state = null;
         private int costOfStation = 100;
@@ -42,11 +43,53 @@ namespace TrainsProject
             } 
         }
 
+        //functions
         private void updateMoneyBox()
         {
             CurrentMoneyTextBox.Text = "Current Money: $" + currentMoney;
         }
 
+        private void createNewStation(string name)
+        {
+            Station newStation = new Station(name);
+            currentStations.Add(newStation);
+            stationMapGrid[newStation.StationLocation].Visible = true;
+            stationMapGrid[newStation.StationLocation].Text = newStation.Name;
+            ConsoleTextBox.Text = "Awesome! We named your new station: " + namingTextBox.Text.Trim();
+        }
+        private void spawningPackages()
+        {
+            if (currentStations.Count > 1)
+            {
+                Random random = new Random();
+                int randomNumOfPackages = random.Next(0, 5);
+                for (int i = 0; i < randomNumOfPackages; i++)
+                {
+                    int randomStation = random.Next(0, currentStations.Count);
+                    currentStations[randomStation].addPackage(random);
+                }
+            }
+        }
+        private void updateTrainandStationInfoBoxes()
+        {
+            StationInfoBox.Items.Clear();
+            trainInfoBox.Items.Clear();
+            foreach(Station stationItem in currentStations)
+            {
+                StationInfoBox.Items.Add("Name: " + stationItem.Name);
+                foreach(Package packageItem in stationItem.PackagesWaiting)
+                {
+                    StationInfoBox.Items.Add("      " + packageItem.PackageType + "-" + packageItem.PackageValue + "  " + packageItem.PackageDestinationStation);
+                }
+            }
+            foreach(Train trainItem in currentTrains)
+            {
+                trainInfoBox.Items.Add(trainItem.Name + "-" + trainItem.TrainCurrentLocation);
+            }
+            spawningPackages();
+        }
+
+        //events
         private void buyStationButton_Click(object sender, EventArgs e)
         {
             ConsoleTextBox.Text = "Do you want to buy a Station for $" + costOfStation + "?";
@@ -59,12 +102,24 @@ namespace TrainsProject
             state = "BuyTrain";
         }
 
+        private void upgradeTrainButton_Click(object sender, EventArgs e)
+        {
+            ConsoleTextBox.Text = "Do you want to upgrade a Train for $" + costOfTrainUpgrade + "?";
+            state = "UpgradeTrain";
+        }
+
         private void YesButton_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(state))
             {
                 if(state == "BuyStation")
                 {
+                    if(currentMoney - costOfStation < 0)
+                    {
+                        ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
+                        state = null;
+                        return;
+                    }
                     ConsoleTextBox.Text = "You clicked yes! We bought you a station. Please enter a name for it:";
                     currentMoney -= costOfStation;
                     updateMoneyBox();
@@ -72,6 +127,12 @@ namespace TrainsProject
                 }
                 if (state == "BuyTrain")
                 {
+                    if (currentMoney - costoftrain < 0)
+                    {
+                        ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
+                        state = null;
+                        return;
+                    }
                     ConsoleTextBox.Text = "You clicked yes! We bought you a Train. Please enter a name for it:";
                     currentMoney -= costoftrain;
                     updateMoneyBox();
@@ -79,12 +140,19 @@ namespace TrainsProject
                 }
                 if (state == "UpgradeTrain")
                 {
+                    if (currentMoney - costOfTrainUpgrade < 0)
+                    {
+                        ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
+                        state = null;
+                        return;
+                    }
                     ConsoleTextBox.Text = "You clicked yes! We purchased an upgrade for you, which train would you like to use it on?";
                     currentMoney -= costOfTrainUpgrade;
                     updateMoneyBox();
                     state = "UpgradeWhichTrain";
                 }
             }
+            spawningPackages();
         }
 
         private void NoButton_Click(object sender, EventArgs e)
@@ -102,6 +170,7 @@ namespace TrainsProject
                 ConsoleTextBox.Text = "Train Upgrade cancelled";
             }
             state = null;
+            spawningPackages();
         }
 
         private void namingSubmit_Click(object sender, EventArgs e)
@@ -113,11 +182,8 @@ namespace TrainsProject
                     ConsoleTextBox.Text = "Sorry! You have to give it a name!";
                     return;
                 }
-                Station newStation = new Station(namingTextBox.Text.Trim());
-                currentStations.Add(newStation);
-                stationMapGrid[newStation.StationLocation].Visible = true;
-                stationMapGrid[newStation.StationLocation].Text = newStation.Name;
-                ConsoleTextBox.Text = "Awesome! We named your new station: " + namingTextBox.Text.Trim();
+                createNewStation(namingTextBox.Text.Trim());
+                updateTrainandStationInfoBoxes();
                 namingTextBox.Text = null;
                 state = null; 
             }
@@ -130,6 +196,7 @@ namespace TrainsProject
                 }
                 currentTrains.Add(new Train(namingTextBox.Text.Trim()));
                 ConsoleTextBox.Text = "Awesome! We named your new Train: " + namingTextBox.Text.Trim();
+                updateTrainandStationInfoBoxes();
                 namingTextBox.Text = null;
                 state = null;
             }
@@ -147,15 +214,9 @@ namespace TrainsProject
                     return;
                 }
                 selectedTrainforUpgrade.TrainCapacity += capacityUpgradeAmount;
+                namingTextBox.Text = null;
                 ConsoleTextBox.Text = "Awesome! We have upgraded the train named " + namingTextBox.Text.Trim() + " to a capacity of " + selectedTrainforUpgrade.TrainCapacity;
             }
         }
-
-        private void upgradeTrainButton_Click(object sender, EventArgs e)
-        {
-            ConsoleTextBox.Text = "Do you want to upgrade a Train for $" + costOfTrainUpgrade + "?";
-            state = "UpgradeTrain";
-        }
     }
-
 }
