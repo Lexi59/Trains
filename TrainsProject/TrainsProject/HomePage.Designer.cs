@@ -1734,6 +1734,7 @@
             this.packageSelectButton.TabIndex = 19;
             this.packageSelectButton.Text = "Select";
             this.packageSelectButton.UseVisualStyleBackColor = true;
+            this.packageSelectButton.Click += new System.EventHandler(this.packageSelectButton_Click);
             // 
             // HomePage
             // 

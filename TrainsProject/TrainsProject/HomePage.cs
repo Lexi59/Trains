@@ -218,10 +218,15 @@ namespace TrainsProject
                         state = null;
                         return;
                     }
-                    ConsoleTextBox.Text = "You clicked yes! We purchased an upgrade for you, where would you like to start the track?";
+                    ConsoleTextBox.Text = "You clicked yes! We purchased an Track for you, where would you like to start it?";
                     currentMoney -= costOfTrack;
                     updateMoneyBox();
                     state = "startTrack";
+                }
+                if (state == "PackageManagement")
+                {
+                    ConsoleTextBox.Text = "Alright, all done adding packages. Where do you want to go?";
+                    state = "MoveTrainDestination";
                 }
             }
             spawningPackages();
@@ -245,8 +250,12 @@ namespace TrainsProject
             {
                 ConsoleTextBox.Text = "Track purchase cancelled";
             }
+            if (state == "PackageManagement")
+            {
+                ConsoleTextBox.Text = "Okay, keep adding items then";
+                return;
+            }
             state = null;
-            spawningPackages();
         }
 
         private void namingSubmit_Click(object sender, EventArgs e)
@@ -345,7 +354,7 @@ namespace TrainsProject
                     return;
                 }
                 namingTextBox.Text = null;
-                ConsoleTextBox.Text = "Alright, we found your Train! It is at station " + selectedTrainforMoving.TrainCurrentLocation.Name + " where would you like it to be?";
+                ConsoleTextBox.Text = "Alright, we found your Train! It is at station " + selectedTrainforMoving.TrainCurrentLocation.Name + " .Go ahead and add any packages or press 'Yes' to continue.";
                 foreach(Track trackitem in currentTracks)
                 {
                     if(trackitem.sourceStation == selectedTrainforMoving.TrainCurrentLocation)
@@ -354,7 +363,11 @@ namespace TrainsProject
                     }
                 }
                 trainForMove = selectedTrainforMoving;
-                state = "MoveTrainDestination";
+                state = "PackageManagement";
+                foreach (Package i in trainForMove.TrainCurrentLocation.PackagesWaiting)
+                {
+                    packageSelectionDropDown.Items.Add(i.PackageType + "-" + i.PackageValue + "," + i.PackageDestinationStation.Name);
+                }
                 return;
             }
             if (state == "MoveTrainDestination")
@@ -370,13 +383,52 @@ namespace TrainsProject
                     ConsoleTextBox.Text = "We couldn't find a Station named " + namingTextBox.Text.Trim();
                     return;
                 }
-                namingTextBox.Text = null;
+                var trackExists = currentTracks.Find(i => i.sourceStation == trainForMove.TrainCurrentLocation && i.destinationStation == selectedStationForMoving);
+                if(trackExists == null)
+                {
+                    ConsoleTextBox.Text = "Sorry, there is no track there. Transaction cancelled.";
+                    namingTextBox.Text = null;
+                    state = null;
+                    return;
+                }
                 trainForMove.TrainCurrentLocation = selectedStationForMoving;
+                ConsoleTextBox.Text = "You have moved!";
+                namingTextBox.Text = null;
                 updateTrainandStationInfoBoxes();
+                packageSelectionDropDown.Items.Clear();
+                packageSelectionDropDown.SelectedItem = null;
+                foreach(Package i in trainForMove.Holding)
+                {
+                    if(i.PackageDestinationStation == trainForMove.TrainCurrentLocation)
+                    {
+                        currentMoney += i.PackageValue;
+                        ConsoleTextBox.Text = "Awesome! Packages have been successfully delivered!";
+                    }
+                }
+                updateMoneyBox();
                 state = null;
             }
         }
 
-
+        private void packageSelectButton_Click(object sender, EventArgs e)
+        {
+            if (state == "PackageManagement" && packageSelectionDropDown.SelectedItem != null)
+            {
+                if(trainForMove.Holding.Count + 1 < trainForMove.TrainCapacity && !trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[packageSelectionDropDown.SelectedIndex]))
+                {
+                    trainForMove.Holding.Add(trainForMove.TrainCurrentLocation.PackagesWaiting[packageSelectionDropDown.SelectedIndex]);
+                    ConsoleTextBox.Text = "Alright, we have added the package for you. Are you done?";
+                }
+                else if (trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[packageSelectionDropDown.SelectedIndex]))
+                {
+                    trainForMove.Holding.Remove(trainForMove.TrainCurrentLocation.PackagesWaiting[packageSelectionDropDown.SelectedIndex]);
+                    ConsoleTextBox.Text = "We have removed the package for you!";
+                }
+                else
+                {
+                    ConsoleTextBox.Text = "Sorry! You don't have room!";
+                }
+            }
+        }
     }
 }
