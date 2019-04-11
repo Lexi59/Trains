@@ -9,21 +9,21 @@ namespace TrainsProject
     class Train
     {
         //constructor
-        public Train(string name)
+        public Train(string name, Station startingStation)
         {
             Name = name;
-            TrainCurrentLocation = 0;
-            Holding = new Package[TrainCapacity];
-            
+            TrainCurrentLocation = null;
+            Holding = new List<Package>();
+            TrainCurrentLocation = startingStation;
         }
 
         //fields
         public string Name;
-        public int TrainCurrentLocation;
+        public Station TrainCurrentLocation;
         public int TrainCapacity = 10;
         private Station TrainDepartureStation;
         private Station TrainDestinationStation;
-        private Package[] Holding;
+        public List<Package> Holding;
 
         //methods
     }

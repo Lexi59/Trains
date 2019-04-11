@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="PackageClass.cs" />
     <Compile Include="StationClass.cs" />
+    <Compile Include="TrackClass.cs" />
     <Compile Include="TrainClass.cs" />
     <Compile Include="HomePage.cs">
       <SubType>Form</SubType>

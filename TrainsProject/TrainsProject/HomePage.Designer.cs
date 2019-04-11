@@ -140,13 +140,17 @@
             this.upgradeTrainButton = new System.Windows.Forms.Button();
             this.trainInfoBox = new System.Windows.Forms.ListBox();
             this.StationInfoBox = new System.Windows.Forms.ListBox();
+            this.moveTrainButton = new System.Windows.Forms.Button();
+            this.buildTrackButton = new System.Windows.Forms.Button();
+            this.packageSelectionDropDown = new System.Windows.Forms.ComboBox();
+            this.packageSelectButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buyStationButton
             // 
             this.buyStationButton.ForeColor = System.Drawing.Color.Purple;
-            this.buyStationButton.Location = new System.Drawing.Point(12, 449);
+            this.buyStationButton.Location = new System.Drawing.Point(17, 554);
             this.buyStationButton.Name = "buyStationButton";
             this.buyStationButton.Size = new System.Drawing.Size(137, 51);
             this.buyStationButton.TabIndex = 1;
@@ -157,7 +161,7 @@
             // buyTrainsButton
             // 
             this.buyTrainsButton.ForeColor = System.Drawing.Color.Purple;
-            this.buyTrainsButton.Location = new System.Drawing.Point(12, 506);
+            this.buyTrainsButton.Location = new System.Drawing.Point(17, 611);
             this.buyTrainsButton.Name = "buyTrainsButton";
             this.buyTrainsButton.Size = new System.Drawing.Size(108, 51);
             this.buyTrainsButton.TabIndex = 2;
@@ -170,25 +174,26 @@
             this.CurrentMoneyTextBox.BackColor = System.Drawing.Color.Purple;
             this.CurrentMoneyTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CurrentMoneyTextBox.ForeColor = System.Drawing.Color.White;
-            this.CurrentMoneyTextBox.Location = new System.Drawing.Point(155, 449);
+            this.CurrentMoneyTextBox.Location = new System.Drawing.Point(160, 554);
             this.CurrentMoneyTextBox.Multiline = true;
             this.CurrentMoneyTextBox.Name = "CurrentMoneyTextBox";
+            this.CurrentMoneyTextBox.ReadOnly = true;
             this.CurrentMoneyTextBox.Size = new System.Drawing.Size(258, 53);
             this.CurrentMoneyTextBox.TabIndex = 3;
             // 
             // ConsoleTextBox
             // 
             this.ConsoleTextBox.ForeColor = System.Drawing.Color.Purple;
-            this.ConsoleTextBox.Location = new System.Drawing.Point(435, 454);
+            this.ConsoleTextBox.Location = new System.Drawing.Point(440, 447);
             this.ConsoleTextBox.Multiline = true;
             this.ConsoleTextBox.Name = "ConsoleTextBox";
-            this.ConsoleTextBox.Size = new System.Drawing.Size(198, 164);
+            this.ConsoleTextBox.Size = new System.Drawing.Size(198, 276);
             this.ConsoleTextBox.TabIndex = 4;
             // 
             // YesButton
             // 
             this.YesButton.ForeColor = System.Drawing.Color.Purple;
-            this.YesButton.Location = new System.Drawing.Point(239, 506);
+            this.YesButton.Location = new System.Drawing.Point(244, 611);
             this.YesButton.Name = "YesButton";
             this.YesButton.Size = new System.Drawing.Size(84, 51);
             this.YesButton.TabIndex = 7;
@@ -199,7 +204,7 @@
             // NoButton
             // 
             this.NoButton.ForeColor = System.Drawing.Color.Purple;
-            this.NoButton.Location = new System.Drawing.Point(329, 506);
+            this.NoButton.Location = new System.Drawing.Point(334, 611);
             this.NoButton.Name = "NoButton";
             this.NoButton.Size = new System.Drawing.Size(84, 51);
             this.NoButton.TabIndex = 8;
@@ -212,7 +217,7 @@
             this.namingTextBox.BackColor = System.Drawing.Color.Purple;
             this.namingTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.namingTextBox.ForeColor = System.Drawing.Color.White;
-            this.namingTextBox.Location = new System.Drawing.Point(12, 563);
+            this.namingTextBox.Location = new System.Drawing.Point(17, 668);
             this.namingTextBox.Multiline = true;
             this.namingTextBox.Name = "namingTextBox";
             this.namingTextBox.Size = new System.Drawing.Size(280, 53);
@@ -221,7 +226,7 @@
             // namingSubmit
             // 
             this.namingSubmit.ForeColor = System.Drawing.Color.Purple;
-            this.namingSubmit.Location = new System.Drawing.Point(298, 563);
+            this.namingSubmit.Location = new System.Drawing.Point(303, 668);
             this.namingSubmit.Name = "namingSubmit";
             this.namingSubmit.Size = new System.Drawing.Size(115, 51);
             this.namingSubmit.TabIndex = 10;
@@ -1663,7 +1668,7 @@
             // 
             this.upgradeTrainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.upgradeTrainButton.ForeColor = System.Drawing.Color.Purple;
-            this.upgradeTrainButton.Location = new System.Drawing.Point(126, 506);
+            this.upgradeTrainButton.Location = new System.Drawing.Point(131, 611);
             this.upgradeTrainButton.Name = "upgradeTrainButton";
             this.upgradeTrainButton.Size = new System.Drawing.Size(107, 51);
             this.upgradeTrainButton.TabIndex = 12;
@@ -1675,25 +1680,70 @@
             // 
             this.trainInfoBox.FormattingEnabled = true;
             this.trainInfoBox.ItemHeight = 16;
-            this.trainInfoBox.Location = new System.Drawing.Point(639, 454);
+            this.trainInfoBox.Location = new System.Drawing.Point(644, 447);
             this.trainInfoBox.Name = "trainInfoBox";
-            this.trainInfoBox.Size = new System.Drawing.Size(347, 164);
+            this.trainInfoBox.Size = new System.Drawing.Size(347, 276);
             this.trainInfoBox.TabIndex = 14;
             // 
             // StationInfoBox
             // 
             this.StationInfoBox.FormattingEnabled = true;
             this.StationInfoBox.ItemHeight = 16;
-            this.StationInfoBox.Location = new System.Drawing.Point(992, 454);
+            this.StationInfoBox.Location = new System.Drawing.Point(997, 447);
             this.StationInfoBox.Name = "StationInfoBox";
-            this.StationInfoBox.Size = new System.Drawing.Size(347, 164);
+            this.StationInfoBox.Size = new System.Drawing.Size(347, 276);
             this.StationInfoBox.TabIndex = 15;
+            // 
+            // moveTrainButton
+            // 
+            this.moveTrainButton.ForeColor = System.Drawing.Color.Purple;
+            this.moveTrainButton.Location = new System.Drawing.Point(17, 440);
+            this.moveTrainButton.Name = "moveTrainButton";
+            this.moveTrainButton.Size = new System.Drawing.Size(401, 51);
+            this.moveTrainButton.TabIndex = 16;
+            this.moveTrainButton.Text = "Move Train";
+            this.moveTrainButton.UseVisualStyleBackColor = true;
+            this.moveTrainButton.Click += new System.EventHandler(this.moveTrainButton_Click);
+            // 
+            // buildTrackButton
+            // 
+            this.buildTrackButton.ForeColor = System.Drawing.Color.Purple;
+            this.buildTrackButton.Location = new System.Drawing.Point(15, 497);
+            this.buildTrackButton.Name = "buildTrackButton";
+            this.buildTrackButton.Size = new System.Drawing.Size(75, 51);
+            this.buildTrackButton.TabIndex = 17;
+            this.buildTrackButton.Text = "Build Track";
+            this.buildTrackButton.UseVisualStyleBackColor = true;
+            this.buildTrackButton.Click += new System.EventHandler(this.buildTrackButton_Click);
+            // 
+            // packageSelectionDropDown
+            // 
+            this.packageSelectionDropDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.packageSelectionDropDown.FormattingEnabled = true;
+            this.packageSelectionDropDown.Location = new System.Drawing.Point(96, 506);
+            this.packageSelectionDropDown.Name = "packageSelectionDropDown";
+            this.packageSelectionDropDown.Size = new System.Drawing.Size(241, 30);
+            this.packageSelectionDropDown.TabIndex = 18;
+            // 
+            // packageSelectButton
+            // 
+            this.packageSelectButton.ForeColor = System.Drawing.Color.Purple;
+            this.packageSelectButton.Location = new System.Drawing.Point(343, 497);
+            this.packageSelectButton.Name = "packageSelectButton";
+            this.packageSelectButton.Size = new System.Drawing.Size(75, 51);
+            this.packageSelectButton.TabIndex = 19;
+            this.packageSelectButton.Text = "Select";
+            this.packageSelectButton.UseVisualStyleBackColor = true;
             // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1379, 630);
+            this.ClientSize = new System.Drawing.Size(1369, 737);
+            this.Controls.Add(this.packageSelectButton);
+            this.Controls.Add(this.packageSelectionDropDown);
+            this.Controls.Add(this.buildTrackButton);
+            this.Controls.Add(this.moveTrainButton);
             this.Controls.Add(this.StationInfoBox);
             this.Controls.Add(this.trainInfoBox);
             this.Controls.Add(this.upgradeTrainButton);
@@ -1830,6 +1880,10 @@
         private System.Windows.Forms.Button upgradeTrainButton;
         private System.Windows.Forms.ListBox trainInfoBox;
         private System.Windows.Forms.ListBox StationInfoBox;
+        private System.Windows.Forms.Button moveTrainButton;
+        private System.Windows.Forms.Button buildTrackButton;
+        private System.Windows.Forms.ComboBox packageSelectionDropDown;
+        private System.Windows.Forms.Button packageSelectButton;
     }
 }
 

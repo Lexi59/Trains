@@ -31,11 +31,15 @@ namespace TrainsProject
         static int StationCapacity = 20;
 
         //methods
-        public void addPackage(Random random)
+        public void addPackage(Station destination)
         {
             if( PackagesWaiting.Count < StationCapacity)
             {
-                PackagesWaiting.Add(new Package(random));
+                Random random = new Random();
+                if(Name != destination.Name)
+                {
+                    PackagesWaiting.Add(new Package(random, destination));
+                }
             }
         }
     }
