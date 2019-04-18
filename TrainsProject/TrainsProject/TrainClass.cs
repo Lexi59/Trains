@@ -24,6 +24,7 @@ namespace TrainsProject
         private Station TrainDepartureStation;
         private Station TrainDestinationStation;
         public List<Package> Holding;
+        public int capacityUpgradeAmount = 5;
 
         //methods
     }

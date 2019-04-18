@@ -24,5 +24,6 @@ namespace TrainsProject
         public Station PackageDestinationStation;
 
         //methods
+
     }
 }

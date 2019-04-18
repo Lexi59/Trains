@@ -14,19 +14,11 @@ namespace TrainsProject
     public partial class HomePage : Form
     {
         //variables
-        private int currentMoney = 500;
         private string state = null;
-        private int costOfStation = 100;
-        private int costoftrain = 50;
-        private int costOfTrainUpgrade = 50;
-        private int costOfTrack = 25;
-        private int capacityUpgradeAmount = 5;
+        private Bank bank = new Bank();
         private Station newTrackSource;
         private Train trainForMove;
-        List<Station> currentStations = new List<Station>();
-        List<Train> currentTrains = new List<Train>();
-        List<Control> stationMapGrid = new List<Control>();
-        List<Track> currentTracks = new List<Track>();
+        private Database database = new Database();
 
         public HomePage()
         {
@@ -42,7 +34,7 @@ namespace TrainsProject
                 var foundTextboxes = Controls.Find(textboxName, true);
                 if(foundTextboxes[0] != null)
                 {
-                    stationMapGrid.Add(foundTextboxes[0]);
+                    database.stationMapGrid.Add(foundTextboxes[0]);
                 }
             } 
         }
@@ -50,27 +42,27 @@ namespace TrainsProject
         //functions
         private void updateMoneyBox()
         {
-            CurrentMoneyTextBox.Text = "Current Money: $" + currentMoney;
+            CurrentMoneyTextBox.Text = "Current Money: $" + bank.currentMoney;
         }
 
         private void createNewStation(string name)
         {
             Station newStation = new Station(name);
-            currentStations.Add(newStation);
-            stationMapGrid[newStation.StationLocation].Visible = true;
-            stationMapGrid[newStation.StationLocation].Text = newStation.Name;
+            database.currentStations.Add(newStation);
+            database.stationMapGrid[newStation.StationLocation].Visible = true;
+            database.stationMapGrid[newStation.StationLocation].Text = newStation.Name;
             ConsoleTextBox.Text = "Awesome! We named your new station: " + namingTextBox.Text.Trim();
         }
         private void spawningPackages()
         {
-            if (currentStations.Count > 1)
+            if (database.currentStations.Count > 1)
             {
                 Random random = new Random();
                 int randomNumOfPackages = random.Next(0, 5);
                 for (int i = 0; i < randomNumOfPackages; i++)
                 {
-                    int randomStation = random.Next(0, currentStations.Count);
-                    currentStations[randomStation].addPackage(currentStations[random.Next(0,currentStations.Count)]);
+                    int randomStation = random.Next(0, database.currentStations.Count);
+                    database.currentStations[randomStation].addPackage(database.currentStations[random.Next(0, database.currentStations.Count)]);
                 }
             }
         }
@@ -78,11 +70,11 @@ namespace TrainsProject
         {
             StationInfoBox.Items.Clear();
             trainInfoBox.Items.Clear();
-            foreach(Station stationItem in currentStations)
+            foreach(Station stationItem in database.currentStations)
             {
                 StationInfoBox.Items.Add("Name: " + stationItem.Name);
                 StationInfoBox.Items.Add("  Destinations:");
-                foreach(Track tracks in currentTracks)
+                foreach(Track tracks in database.currentTracks)
                 {
                     if(tracks.sourceStation.Name == stationItem.Name)
                     {
@@ -95,7 +87,7 @@ namespace TrainsProject
                     StationInfoBox.Items.Add("      " + packageItem.PackageType + "-" + packageItem.PackageValue + "  " + packageItem.PackageDestinationStation.Name);
                 }
             }
-            foreach (Train trainItem in currentTrains)
+            foreach (Train trainItem in database.currentTrains)
             {
                 trainInfoBox.Items.Add(trainItem.Name + "-" + trainItem.TrainCurrentLocation.Name);
                 trainInfoBox.Items.Add("    Packages:");
@@ -115,7 +107,7 @@ namespace TrainsProject
                 ConsoleTextBox.Text += "Finish this transaction first!";
                 return;
             }
-            ConsoleTextBox.Text = "Do you want to buy a Station for $" + costOfStation + "?";
+            ConsoleTextBox.Text = "Do you want to buy a Station for $" + bank.costOfStation + "?";
             state = "BuyStation";
         }
 
@@ -126,13 +118,13 @@ namespace TrainsProject
                 ConsoleTextBox.Text += "Finish this transaction first!";
                 return;
             }
-            ConsoleTextBox.Text = "Do you want to buy a train for $" + costoftrain + "?";
+            ConsoleTextBox.Text = "Do you want to buy a train for $" + bank.costoftrain + "?";
             state = "BuyTrain";
         }
 
         private void upgradeTrainButton_Click(object sender, EventArgs e)
         {
-            if (currentTrains.Count < 1)
+            if (database.currentTrains.Count < 1)
             {
                 ConsoleTextBox.Text = "You can't purchase a train upgrade before having a train!";
                 state = null;
@@ -143,7 +135,7 @@ namespace TrainsProject
                 ConsoleTextBox.Text += "Finish this transaction first!";
                 return;
             }
-            ConsoleTextBox.Text = "Do you want to upgrade a Train for $" + costOfTrainUpgrade + "?";
+            ConsoleTextBox.Text = "Do you want to upgrade a Train for $" + bank.costOfTrainUpgrade + "?";
             state = "UpgradeTrain";
         }
 
@@ -154,7 +146,7 @@ namespace TrainsProject
                 ConsoleTextBox.Text += "Finish this transaction first!";
                 return;
             }
-            ConsoleTextBox.Text = "Do you want to buy a track for $" + costOfTrack + "?";
+            ConsoleTextBox.Text = "Do you want to buy a track for $" + bank.costOfTrack + "?";
             state = "BuyTrack";
         }
         private void moveTrainButton_Click(object sender, EventArgs e)
@@ -164,12 +156,12 @@ namespace TrainsProject
                 ConsoleTextBox.Text += "Finish this transaction first!";
                 return;
             }
-            if (currentTrains.Count < 1)
+            if (database.currentTrains.Count < 1)
             {
                 ConsoleTextBox.Text = "Sorry! You can't move a train until you have a train";
                 return;
             }
-            if(currentTracks.Count < 1)
+            if(database.currentTracks.Count < 1)
             {
                 ConsoleTextBox.Text = "Sorry! You can't move a train until you have tracks!";
                 return;
@@ -183,65 +175,65 @@ namespace TrainsProject
             {
                 if(state == "BuyStation")
                 {
-                    if(currentMoney - costOfStation < 0)
+                    if(bank.currentMoney - bank.costOfStation < 0)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
                         state = null;
                         return;
                     }
                     ConsoleTextBox.Text = "You clicked yes! We bought you a station. Please enter a name for it:";
-                    currentMoney -= costOfStation;
+                    bank.currentMoney -= bank.costOfStation;
                     updateMoneyBox();
                     state = "nameStation";
                 }
                 if (state == "BuyTrain")
                 {
-                    if(currentStations.Count < 1)
+                    if(database.currentStations.Count < 1)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't buy a train until you have a station!";
                         state = null;
                         return;
                     }
-                    if (currentMoney - costoftrain < 0)
+                    if (bank.currentMoney - bank.costoftrain < 0)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
                         state = null;
                         return;
                     }
                     ConsoleTextBox.Text = "You clicked yes! We bought you a Train. Please enter a name for it:";
-                    currentMoney -= costoftrain;
+                    bank.currentMoney -= bank.costoftrain;
                     updateMoneyBox();
                     state = "nameTrain";
                 }
                 if (state == "UpgradeTrain")
                 {
-                    if (currentMoney - costOfTrainUpgrade < 0)
+                    if (bank.currentMoney - bank.costOfTrainUpgrade < 0)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
                         state = null;
                         return;
                     }
                     ConsoleTextBox.Text = "You clicked yes! We purchased an upgrade for you, which train would you like to use it on?";
-                    currentMoney -= costOfTrainUpgrade;
+                    bank.currentMoney -= bank.costOfTrainUpgrade;
                     updateMoneyBox();
                     state = "UpgradeWhichTrain";
                 }
                 if (state == "BuyTrack")
                 {
-                    if(currentStations.Count < 2)
+                    if(database.currentStations.Count < 2)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't buy a track until you have 2 stations!";
                         state = null;
                         return;
                     }
-                    if(currentMoney - costOfTrack < 0)
+                    if(bank.currentMoney - bank.costOfTrack < 0)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
                         state = null;
                         return;
                     }
                     ConsoleTextBox.Text = "You clicked yes! We purchased an Track for you, where would you like to start it?";
-                    currentMoney -= costOfTrack;
+                    bank.currentMoney -= bank.costOfTrack;
                     updateMoneyBox();
                     state = "startTrack";
                 }
@@ -302,7 +294,7 @@ namespace TrainsProject
                     return;
                 }
                 Random random = new Random();
-                currentTrains.Add(new Train(namingTextBox.Text.Trim(),currentStations[random.Next(0,currentStations.Count)]));
+                database.currentTrains.Add(new Train(namingTextBox.Text.Trim(), database.currentStations[random.Next(0, database.currentStations.Count)]));
                 ConsoleTextBox.Text = "Awesome! We named your new Train: " + namingTextBox.Text.Trim();
                 updateTrainandStationInfoBoxes();
                 namingTextBox.Text = null;
@@ -315,13 +307,13 @@ namespace TrainsProject
                     ConsoleTextBox.Text = "Sorry! You have to pick a train!";
                     return;
                 }
-                var selectedTrainforUpgrade = currentTrains.Find(i => i.Name == namingTextBox.Text.Trim());
+                var selectedTrainforUpgrade = database.currentTrains.Find(i => i.Name == namingTextBox.Text.Trim());
                 if(selectedTrainforUpgrade == null)
                 {
                     ConsoleTextBox.Text = "We couldn't find a train named " + namingTextBox.Text.Trim();
                     return;
                 }
-                selectedTrainforUpgrade.TrainCapacity += capacityUpgradeAmount;
+                selectedTrainforUpgrade.TrainCapacity += selectedTrainforUpgrade.capacityUpgradeAmount;
                 ConsoleTextBox.Text = "Awesome! We have upgraded the train named " + namingTextBox.Text.Trim() + " to a capacity of " + selectedTrainforUpgrade.TrainCapacity;
                 namingTextBox.Text = null;
                 state = null;
@@ -333,7 +325,7 @@ namespace TrainsProject
                     ConsoleTextBox.Text = "Sorry! You have to pick a Station";
                     return;
                 }
-                var selectedStationforSource = currentStations.Find(i => i.Name == namingTextBox.Text.Trim());
+                var selectedStationforSource = database.currentStations.Find(i => i.Name == namingTextBox.Text.Trim());
                 if(selectedStationforSource == null)
                 {
                     ConsoleTextBox.Text = "We couldn't find a Station named " + namingTextBox.Text.Trim();
@@ -352,7 +344,7 @@ namespace TrainsProject
                     ConsoleTextBox.Text = "Sorry! You have to pick a Station";
                     return;
                 }
-                var selectedStationforDestination = currentStations.Find(i => i.Name == namingTextBox.Text.Trim());
+                var selectedStationforDestination = database.currentStations.Find(i => i.Name == namingTextBox.Text.Trim());
                 if (selectedStationforDestination == null)
                 {
                     ConsoleTextBox.Text = "We couldn't find a Station named " + namingTextBox.Text.Trim();
@@ -360,7 +352,7 @@ namespace TrainsProject
                 }
                 namingTextBox.Text = null;
                 ConsoleTextBox.Text = "Alright, we have set the track for you!";
-                currentTracks.Add(new Track(newTrackSource, selectedStationforDestination));
+                database.currentTracks.Add(new Track(newTrackSource, selectedStationforDestination));
                 state = null;
                 updateTrainandStationInfoBoxes();
             }
@@ -371,7 +363,7 @@ namespace TrainsProject
                     ConsoleTextBox.Text = "Sorry! You have to pick a Train";
                     return;
                 }
-                var selectedTrainforMoving = currentTrains.Find(i => i.Name == namingTextBox.Text.Trim());
+                var selectedTrainforMoving = database.currentTrains.Find(i => i.Name == namingTextBox.Text.Trim());
                 if (selectedTrainforMoving == null)
                 {
                     ConsoleTextBox.Text = "We couldn't find a train named " + namingTextBox.Text.Trim();
@@ -394,13 +386,13 @@ namespace TrainsProject
                     ConsoleTextBox.Text += "Sorry! You have to pick a Station";
                     return;
                 }
-                var selectedStationForMoving = currentStations.Find(i => i.Name == namingTextBox.Text.Trim());
+                var selectedStationForMoving = database.currentStations.Find(i => i.Name == namingTextBox.Text.Trim());
                 if (selectedStationForMoving == null)
                 {
                     ConsoleTextBox.Text = "We couldn't find a Station named " + namingTextBox.Text.Trim();
                     return;
                 }
-                var trackExists = currentTracks.Find(i => i.sourceStation == trainForMove.TrainCurrentLocation && i.destinationStation == selectedStationForMoving);
+                var trackExists = database.currentTracks.Find(i => i.sourceStation == trainForMove.TrainCurrentLocation && i.destinationStation == selectedStationForMoving);
                 if(trackExists == null)
                 {
                     ConsoleTextBox.Text = "Sorry, there is no track there. Transaction cancelled.";
@@ -418,7 +410,7 @@ namespace TrainsProject
                 {
                     if(i.PackageDestinationStation == trainForMove.TrainCurrentLocation)
                     {
-                        currentMoney += i.PackageValue;
+                        bank.currentMoney += i.PackageValue;
                         ConsoleTextBox.Text = "Awesome! Packages have been successfully delivered!";
                     }
                 }
