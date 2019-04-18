@@ -17,9 +17,9 @@ namespace TrainsProject
         private int currentMoney = 500;
         private string state = null;
         private int costOfStation = 100;
-        private int costoftrain = 25;
+        private int costoftrain = 50;
         private int costOfTrainUpgrade = 50;
-        private int costOfTrack = 70;
+        private int costOfTrack = 25;
         private int capacityUpgradeAmount = 5;
         private Station newTrackSource;
         private Train trainForMove;
@@ -81,6 +81,15 @@ namespace TrainsProject
             foreach(Station stationItem in currentStations)
             {
                 StationInfoBox.Items.Add("Name: " + stationItem.Name);
+                StationInfoBox.Items.Add("  Destinations:");
+                foreach(Track tracks in currentTracks)
+                {
+                    if(tracks.sourceStation.Name == stationItem.Name)
+                    {
+                        StationInfoBox.Items.Add("      " + tracks.destinationStation.Name);
+                    }
+                }
+                StationInfoBox.Items.Add("  Packages:");
                 foreach(Package packageItem in stationItem.PackagesWaiting)
                 {
                     StationInfoBox.Items.Add("      " + packageItem.PackageType + "-" + packageItem.PackageValue + "  " + packageItem.PackageDestinationStation.Name);
@@ -89,6 +98,11 @@ namespace TrainsProject
             foreach (Train trainItem in currentTrains)
             {
                 trainInfoBox.Items.Add(trainItem.Name + "-" + trainItem.TrainCurrentLocation.Name);
+                trainInfoBox.Items.Add("    Packages:");
+                foreach(Package packageItem in trainItem.Holding)
+                {
+                    trainInfoBox.Items.Add("      " + packageItem.PackageType + "-" + packageItem.PackageValue + "  " + packageItem.PackageDestinationStation.Name);
+                }
             }
             spawningPackages();
         }
@@ -118,6 +132,12 @@ namespace TrainsProject
 
         private void upgradeTrainButton_Click(object sender, EventArgs e)
         {
+            if (currentTrains.Count < 1)
+            {
+                ConsoleTextBox.Text = "You can't purchase a train upgrade before having a train!";
+                state = null;
+                return;
+            }
             if (state != null)
             {
                 ConsoleTextBox.Text += "Finish this transaction first!";
@@ -179,6 +199,7 @@ namespace TrainsProject
                     if(currentStations.Count < 1)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't buy a train until you have a station!";
+                        state = null;
                         return;
                     }
                     if (currentMoney - costoftrain < 0)
@@ -210,6 +231,7 @@ namespace TrainsProject
                     if(currentStations.Count < 2)
                     {
                         ConsoleTextBox.Text = "Sorry! You can't buy a track until you have 2 stations!";
+                        state = null;
                         return;
                     }
                     if(currentMoney - costOfTrack < 0)
@@ -300,8 +322,9 @@ namespace TrainsProject
                     return;
                 }
                 selectedTrainforUpgrade.TrainCapacity += capacityUpgradeAmount;
-                namingTextBox.Text = null;
                 ConsoleTextBox.Text = "Awesome! We have upgraded the train named " + namingTextBox.Text.Trim() + " to a capacity of " + selectedTrainforUpgrade.TrainCapacity;
+                namingTextBox.Text = null;
+                state = null;
             }
             if (state == "startTrack")
             {
@@ -339,6 +362,7 @@ namespace TrainsProject
                 ConsoleTextBox.Text = "Alright, we have set the track for you!";
                 currentTracks.Add(new Track(newTrackSource, selectedStationforDestination));
                 state = null;
+                updateTrainandStationInfoBoxes();
             }
             if (state == "MoveTrain")
             {
@@ -355,13 +379,6 @@ namespace TrainsProject
                 }
                 namingTextBox.Text = null;
                 ConsoleTextBox.Text = "Alright, we found your Train! It is at station " + selectedTrainforMoving.TrainCurrentLocation.Name + " .Go ahead and add any packages or press 'Yes' to continue.";
-                foreach(Track trackitem in currentTracks)
-                {
-                    if(trackitem.sourceStation == selectedTrainforMoving.TrainCurrentLocation)
-                    {
-                        ConsoleTextBox.Text += (trackitem.destinationStation.Name + " ");
-                    }
-                }
                 trainForMove = selectedTrainforMoving;
                 state = "PackageManagement";
                 foreach (Package i in trainForMove.TrainCurrentLocation.PackagesWaiting)
@@ -405,7 +422,9 @@ namespace TrainsProject
                         ConsoleTextBox.Text = "Awesome! Packages have been successfully delivered!";
                     }
                 }
+                trainForMove.Holding.RemoveAll(i => i.PackageDestinationStation == trainForMove.TrainCurrentLocation);
                 updateMoneyBox();
+                updateTrainandStationInfoBoxes();
                 state = null;
             }
         }
@@ -418,6 +437,7 @@ namespace TrainsProject
                 {
                     trainForMove.Holding.Add(trainForMove.TrainCurrentLocation.PackagesWaiting[packageSelectionDropDown.SelectedIndex]);
                     ConsoleTextBox.Text = "Alright, we have added the package for you. Are you done?";
+                    updateTrainandStationInfoBoxes();
                 }
                 else if (trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[packageSelectionDropDown.SelectedIndex]))
                 {
