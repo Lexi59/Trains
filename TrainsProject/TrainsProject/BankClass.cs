@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
 namespace TrainsProject
 {
-    class Bank
+    class Bank : Database
     {
         //constructor
         public Bank()
         {
-        currentMoney = 500;
-        costOfStation = 100;
-        costoftrain = 50;
-        costOfTrainUpgrade = 50;
-        costOfTrack = 25;
-    }
+        }
         //fields
-        public int currentMoney;
-        public int costOfStation;
-        public int costoftrain;
-        public int costOfTrainUpgrade;
-        public int costOfTrack;
+        public static int currentMoney = 500;
+        public readonly static int costOfStation = 100;
+        public readonly static int costoftrain = 50;
+        public readonly static int costOfTrainUpgrade = 50;
+        public readonly static int costOfTrack = 25;
+        public static HomePage homepage;
         //methods
+        public static void updateMoneyBox()
+        {
+            homepage.CurrentMoneyTextBox.Text = "Current Money: $" + currentMoney;
+        }
 
     }
 }
