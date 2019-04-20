@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-
-namespace TrainsProject
+﻿namespace TrainsProject
 {
     class Bank : Database
     {
@@ -19,7 +11,7 @@ namespace TrainsProject
         public readonly static int costOfTrack = 25;
 
         public static int CurrentMoney { get; set; } = 500;
-        public static HomePage Homepage { get; set; }
+        public static HomePage Homepage { get; set; } = HomePage.ReferenceToHomePage;
 
         //methods
         public static void updateMoneyBox()

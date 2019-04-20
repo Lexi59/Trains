@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TrainsProject
 {
@@ -46,16 +43,6 @@ namespace TrainsProject
         {
             if (state == "BuyTrain")
             {
-                if (CurrentStations.Count < 1)
-                {
-                    Homepage.ConsoleTextBox.Text = "Sorry! You can't buy a train until you have a station!";
-                    return null;
-                }
-                if (Bank.CurrentMoney - Bank.costoftrain < 0)
-                {
-                    Homepage.ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
-                    return null;
-                }
                 Homepage.ConsoleTextBox.Text = "You clicked yes! We bought you a Train. Please enter a name for it:";
                 Bank.CurrentMoney -= Bank.costoftrain;
                 Bank.updateMoneyBox();

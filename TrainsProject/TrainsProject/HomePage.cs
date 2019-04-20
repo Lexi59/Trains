@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Web;
 
 namespace TrainsProject
 {
@@ -17,24 +9,28 @@ namespace TrainsProject
         private string state = null;
         private Bank bank;
 
+        public static HomePage ReferenceToHomePage { get; set; }
+
+        //constructor
         public HomePage()
         {
             InitializeComponent();
             bank = new Bank();
             Database.InitializeMap(this);
-            Train.Homepage = this;
-            Station.Homepage = this;
-            Package.Homepage = this;
+            ReferenceToHomePage = this;
             Bank.Homepage = this;
             Track.Homepage = this;
+            Package.Homepage = this;
+            Station.Homepage = this;
+            Train.Homepage = this;
         }
 
+        //events
         private void Form1_Load(object sender, EventArgs e)
         {
             Bank.updateMoneyBox();
         }
 
-        //events
         private void buyStationButton_Click(object sender, EventArgs e)
         {
             state = Station.buyStation(state);
@@ -62,7 +58,7 @@ namespace TrainsProject
         {
             if (!string.IsNullOrEmpty(state))
             {
-                if(state == "BuyStation")
+                if (state == "BuyStation")
                 {
                     state = Station.buyStation(state);
                 }
