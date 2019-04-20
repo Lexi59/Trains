@@ -22,19 +22,20 @@ namespace TrainsProject
         public string PackageType;
         public int PackageValue;
         public Station PackageDestinationStation;
-        public static HomePage homepage;
+
+        public static HomePage Homepage { get; set; }
 
         //methods
         public static void spawningPackages()
         {
-            if (Database.currentStations.Count > 1)
+            if (Database.CurrentStations.Count > 1)
             {
                 Random random = new Random();
                 int randomNumOfPackages = random.Next(0, 5);
                 for (int i = 0; i < randomNumOfPackages; i++)
                 {
-                    int randomStation = random.Next(0, currentStations.Count);
-                    currentStations[randomStation].addPackage(currentStations[random.Next(0, currentStations.Count)]);
+                    int randomStation = random.Next(0, CurrentStations.Count);
+                    CurrentStations[randomStation].addPackage(CurrentStations[random.Next(0, CurrentStations.Count)]);
                 }
             }
         }
@@ -42,26 +43,26 @@ namespace TrainsProject
         {
             if (state == "PackageManagementComplete")
             {
-                homepage.ConsoleTextBox.Text = "Alright, all done adding packages. Where do you want to go?";
+                Homepage.ConsoleTextBox.Text = "Alright, all done adding packages. Where do you want to go?";
                 return "MoveTrainDestination";
             }
-            if (state == "PackageManagement" && homepage.packageSelectionDropDown.SelectedItem != null && trainForMove != null)
+            if (state == "PackageManagement" && Homepage.packageSelectionDropDown.SelectedItem != null && trainForMove != null)
             {
-                if (trainForMove.Holding.Count + 1 < trainForMove.TrainCapacity && !trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[homepage.packageSelectionDropDown.SelectedIndex]))
+                if (trainForMove.Holding.Count + 1 < trainForMove.TrainCapacity && !trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[Homepage.packageSelectionDropDown.SelectedIndex]))
                 {
-                    trainForMove.Holding.Add(trainForMove.TrainCurrentLocation.PackagesWaiting[homepage.packageSelectionDropDown.SelectedIndex]);
-                    homepage.ConsoleTextBox.Text = "Alright, we have added the package for you. Are you done?";
+                    trainForMove.Holding.Add(trainForMove.TrainCurrentLocation.PackagesWaiting[Homepage.packageSelectionDropDown.SelectedIndex]);
+                    Homepage.ConsoleTextBox.Text = "Alright, we have added the package for you. Are you done?";
                     Train.updateTrainInfoBox();
                     Station.updateStationInfoBox();
                 }
-                else if (trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[homepage.packageSelectionDropDown.SelectedIndex]))
+                else if (trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[Homepage.packageSelectionDropDown.SelectedIndex]))
                 {
-                    trainForMove.Holding.Remove(trainForMove.TrainCurrentLocation.PackagesWaiting[homepage.packageSelectionDropDown.SelectedIndex]);
-                    homepage.ConsoleTextBox.Text = "We have removed the package for you!";
+                    trainForMove.Holding.Remove(trainForMove.TrainCurrentLocation.PackagesWaiting[Homepage.packageSelectionDropDown.SelectedIndex]);
+                    Homepage.ConsoleTextBox.Text = "We have removed the package for you!";
                 }
                 else
                 {
-                    homepage.ConsoleTextBox.Text = "Sorry! You don't have room!";
+                    Homepage.ConsoleTextBox.Text = "Sorry! You don't have room!";
                 }
             }
             return state;

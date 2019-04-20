@@ -16,18 +16,17 @@ namespace TrainsProject
         //variables
         private string state = null;
         private Bank bank;
-        private Station selectedStationforSource;
 
         public HomePage()
         {
             InitializeComponent();
             bank = new Bank();
             Database.InitializeMap(this);
-            Train.homepage = this;
-            Station.homepage = this;
-            Package.homepage = this;
-            Bank.homepage = this;
-            Track.homepage = this;
+            Train.Homepage = this;
+            Station.Homepage = this;
+            Package.Homepage = this;
+            Bank.Homepage = this;
+            Track.Homepage = this;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -148,7 +147,7 @@ namespace TrainsProject
         {
             if (state == "PackageManagement")
             {
-                state = Package.packageManagement(state, Train.trainForMove);
+                state = Package.packageManagement(state, Train.TrainForMove);
             }
         }
     }

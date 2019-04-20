@@ -29,7 +29,8 @@ namespace TrainsProject
         public int StationLocation;
         public List<Package> PackagesWaiting = new List<Package>();
         private static int StationCapacity = 20;
-        public static HomePage homepage;
+
+        public static HomePage Homepage { get; set; }
 
         //methods
         public void addPackage(Station destination)
@@ -45,30 +46,30 @@ namespace TrainsProject
         }
         public static void createNewStation(Station newStation)
         {
-            currentStations.Add(newStation);
-            homepage.ConsoleTextBox.Text = "The length of station map grid is: " + stationMapGrid.Count;
-            stationMapGrid[newStation.StationLocation].Visible = true;
-            stationMapGrid[newStation.StationLocation].Text = newStation.Name;
-            homepage.ConsoleTextBox.Text = "Awesome! We named your new station: " + homepage.namingTextBox.Text.Trim();
+            CurrentStations.Add(newStation);
+            Homepage.ConsoleTextBox.Text = "The length of station map grid is: " + StationMapGrid.Count;
+            StationMapGrid[newStation.StationLocation].Visible = true;
+            StationMapGrid[newStation.StationLocation].Text = newStation.Name;
+            Homepage.ConsoleTextBox.Text = "Awesome! We named your new station: " + Homepage.namingTextBox.Text.Trim();
         }
         public static void updateStationInfoBox()
         {
-            homepage.StationInfoBox.Items.Clear();
-            foreach (Station stationItem in currentStations)
+            Homepage.StationInfoBox.Items.Clear();
+            foreach (Station stationItem in CurrentStations)
             {
-                homepage.StationInfoBox.Items.Add("Name: " + stationItem.Name);
-                homepage.StationInfoBox.Items.Add("  Destinations:");
-                foreach (Track tracks in currentTracks)
+                Homepage.StationInfoBox.Items.Add("Name: " + stationItem.Name);
+                Homepage.StationInfoBox.Items.Add("  Destinations:");
+                foreach (Track tracks in CurrentTracks)
                 {
                     if (tracks.sourceStation.Name == stationItem.Name)
                     {
-                        homepage.StationInfoBox.Items.Add("      " + tracks.destinationStation.Name);
+                        Homepage.StationInfoBox.Items.Add("      " + tracks.destinationStation.Name);
                     }
                 }
-                homepage.StationInfoBox.Items.Add("  Packages:");
+                Homepage.StationInfoBox.Items.Add("  Packages:");
                 foreach (Package packageItem in stationItem.PackagesWaiting)
                 {
-                    homepage.StationInfoBox.Items.Add("      " + packageItem.PackageType + "-" + packageItem.PackageValue + "  " + packageItem.PackageDestinationStation.Name);
+                    Homepage.StationInfoBox.Items.Add("      " + packageItem.PackageType + "-" + packageItem.PackageValue + "  " + packageItem.PackageDestinationStation.Name);
                 }
             }
             Package.spawningPackages();
@@ -77,22 +78,22 @@ namespace TrainsProject
         {
             if (state == "BuyStation")
             {
-                if (Bank.currentMoney - Bank.costOfStation < 0)
+                if (Bank.CurrentMoney - Bank.costOfStation < 0)
                 {
-                    homepage.ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
+                    Homepage.ConsoleTextBox.Text = "Sorry! You can't do that! You don't have enough money!";
                     return null;
                 }
-                homepage.ConsoleTextBox.Text = "You clicked yes! We bought you a station. Please enter a name for it:";
-                Bank.currentMoney -= Bank.costOfStation;
+                Homepage.ConsoleTextBox.Text = "You clicked yes! We bought you a station. Please enter a name for it:";
+                Bank.CurrentMoney -= Bank.costOfStation;
                 Bank.updateMoneyBox();
                 return "nameStation";
             }
             if (state != null)
             {
-                homepage.ConsoleTextBox.Text += "Finish this transaction first!";
+                Homepage.ConsoleTextBox.Text += "Finish this transaction first!";
                 return state;
             }
-            homepage.ConsoleTextBox.Text = "Do you want to buy a Station for $" + Bank.costOfStation + "?";
+            Homepage.ConsoleTextBox.Text = "Do you want to buy a Station for $" + Bank.costOfStation + "?";
             return "BuyStation";
 
         }
@@ -100,15 +101,15 @@ namespace TrainsProject
         {
             if (state == "nameStation")
             {
-                if (string.IsNullOrEmpty(homepage.namingTextBox.Text.Trim()))
+                if (string.IsNullOrEmpty(Homepage.namingTextBox.Text.Trim()))
                 {
-                    homepage.ConsoleTextBox.Text = "Sorry! You have to give it a name!";
+                    Homepage.ConsoleTextBox.Text = "Sorry! You have to give it a name!";
                     return state;
                 }
-                Station.createNewStation(new Station(homepage.namingTextBox.Text.Trim()));
+                Station.createNewStation(new Station(Homepage.namingTextBox.Text.Trim()));
                 Train.updateTrainInfoBox();
                 Station.updateStationInfoBox();
-                homepage.namingTextBox.Text = null;
+                Homepage.namingTextBox.Text = null;
                 return null;
             }
             return state;

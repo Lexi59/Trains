@@ -11,20 +11,20 @@ namespace TrainsProject
     class Bank : Database
     {
         //constructor
-        public Bank()
-        {
-        }
-        //fields
-        public static int currentMoney = 500;
+        public Bank() { }
+
         public readonly static int costOfStation = 100;
         public readonly static int costoftrain = 50;
         public readonly static int costOfTrainUpgrade = 50;
         public readonly static int costOfTrack = 25;
-        public static HomePage homepage;
+
+        public static int CurrentMoney { get; set; } = 500;
+        public static HomePage Homepage { get; set; }
+
         //methods
         public static void updateMoneyBox()
         {
-            homepage.CurrentMoneyTextBox.Text = "Current Money: $" + currentMoney;
+            Homepage.CurrentMoneyTextBox.Text = "Current Money: $" + CurrentMoney;
         }
 
     }

@@ -10,14 +10,13 @@ namespace TrainsProject
     abstract class Database
     {
         //constructor
-        protected Database()
-        {
-        }
-        //fields
-        public static List<Station> currentStations = new List<Station>();
-        public static List<Train> currentTrains = new List<Train>();
-        public static List<Control> stationMapGrid = new List<Control>();
-        public static List<Track> currentTracks = new List<Track>();
+        protected Database() { }
+
+        internal static List<Station> CurrentStations { get; set; } = new List<Station>();
+        internal static List<Train> CurrentTrains { get; set; } = new List<Train>();
+        public static List<Control> StationMapGrid { get; set; } = new List<Control>();
+        internal static List<Track> CurrentTracks { get; set; } = new List<Track>();
+
         //methods
         public static void InitializeMap(HomePage homepage)
         {
@@ -27,7 +26,7 @@ namespace TrainsProject
                 var foundTextboxes = homepage.Controls.Find(textboxName, true);
                 if (foundTextboxes[0] != null)
                 {
-                    stationMapGrid.Add(foundTextboxes[0]);
+                    StationMapGrid.Add(foundTextboxes[0]);
                 }
             }
         }
