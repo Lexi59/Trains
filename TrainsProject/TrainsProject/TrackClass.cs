@@ -2,20 +2,18 @@
 
 namespace TrainsProject
 {
-    class Track : Database
+    public class Track : Database
     {
         //constructor
         public Track(Station source, Station destination)
         {
             sourceStation = source;
             destinationStation = destination;
-            length = Math.Abs(source.StationLocation % 10 - destination.StationLocation % 10) + (source.StationLocation / destination.StationLocation);
         }
 
         //fields
         public Station sourceStation;
         public Station destinationStation;
-        public int length;
         private static Station selectedStationForSource;
 
         public static HomePage Homepage { get; set; }
@@ -84,6 +82,13 @@ namespace TrainsProject
                 }
                 Homepage.ConsoleTextBox.Text = "You picked Station " + selectedStationforDestination.Name;
                 Homepage.namingTextBox.Text = null;
+                if(selectedStationforDestination == selectedStationForSource)
+                {
+                    Homepage.ConsoleTextBox.Text = "Sorry, you can't make a looped track. Transaction cancelled.";
+                    Bank.CurrentMoney += Bank.costOfTrack;
+                    Bank.updateMoneyBox();
+                    return null;
+                }
                 Homepage.ConsoleTextBox.Text = "Alright, we have set the track for you!";
                 CurrentTracks.Add(new Track(selectedStationForSource,selectedStationforDestination));
                 state = null;

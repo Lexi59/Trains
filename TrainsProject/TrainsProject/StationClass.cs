@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TrainsProject
 {
-    class Station : Database
+    public class Station : Database
     {
         //constructor
         public Station(string name)
@@ -17,16 +17,16 @@ namespace TrainsProject
             usedLocation.Add(StationLocation); 
             Name = name;
         }
-        //fields
-        public string Name;
+
         const int mapSize = 100;
         private static List<int> usedLocation = new List<int>();
         private readonly Random randomnumber = new Random();
-        public int StationLocation;
-        public List<Package> PackagesWaiting = new List<Package>();
         private static int StationCapacity = 20;
 
         public static HomePage Homepage { get; set; }
+        public string Name { get; set; }
+        public int StationLocation { get; set; }
+        public List<Package> PackagesWaiting { get; set; } = new List<Package>();
 
         //methods
         public void addPackage(Station destination)
@@ -43,7 +43,6 @@ namespace TrainsProject
         public static void createNewStation(Station newStation)
         {
             CurrentStations.Add(newStation);
-            Homepage.ConsoleTextBox.Text = "The length of station map grid is: " + StationMapGrid.Count;
             StationMapGrid[newStation.StationLocation].Visible = true;
             StationMapGrid[newStation.StationLocation].Text = newStation.Name;
             Homepage.ConsoleTextBox.Text = "Awesome! We named your new station: " + Homepage.namingTextBox.Text.Trim();

@@ -2,13 +2,12 @@
 
 namespace TrainsProject
 {
-    class Package : Database
+    public class Package : Database
     {
         //constructor
         public Package(Random RandomNumber, Station destination)
         {
             string[] packageTypeArray = { "Toys", "Gifts", "Electronics", "Clothes", "Food" };
-            
             int randomNumberForPackageType = RandomNumber.Next(0, packageTypeArray.Length);
             PackageType = packageTypeArray[randomNumberForPackageType];
             PackageValue = RandomNumber.Next(0, 300);

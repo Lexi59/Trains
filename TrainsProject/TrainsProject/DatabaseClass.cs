@@ -3,15 +3,16 @@ using System.Windows.Forms;
 
 namespace TrainsProject
 {
-    abstract class Database
+    public abstract class Database
     {
         //constructor
         protected Database() { }
 
-        internal static List<Station> CurrentStations { get; set; } = new List<Station>();
-        internal static List<Train> CurrentTrains { get; set; } = new List<Train>();
+        public static List<Station> CurrentStations { get; set; } = new List<Station>();
+        public static List<Train> CurrentTrains { get; set; } = new List<Train>();
         public static List<Control> StationMapGrid { get; set; } = new List<Control>();
-        internal static List<Track> CurrentTracks { get; set; } = new List<Track>();
+        public static List<Track> CurrentTracks { get; set; } = new List<Track>();
+        public static HomePage Homepage;
 
         //methods
         public static void InitializeMap(HomePage homepage)
@@ -25,6 +26,7 @@ namespace TrainsProject
                     StationMapGrid.Add(foundTextboxes[0]);
                 }
             }
+            Homepage = homepage;
         }
     }
 }

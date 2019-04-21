@@ -1,6 +1,6 @@
 ﻿namespace TrainsProject
 {
-    class Bank : Database
+    public class Bank : Database
     {
         //constructor
         public Bank() { }

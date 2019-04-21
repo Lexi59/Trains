@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TrainsProject
 {
-    class Train : Database
+    public class Train : Database
     {
         //constructor
         public Train(string name, Station startingStation)
@@ -43,6 +43,11 @@ namespace TrainsProject
         {
             if (state == "BuyTrain")
             {
+                if(CurrentStations.Count < 1)
+                {
+                    Homepage.ConsoleTextBox.Text = "Sorry! You have to buy a station first!";
+                    return null;
+                }
                 Homepage.ConsoleTextBox.Text = "You clicked yes! We bought you a Train. Please enter a name for it:";
                 Bank.CurrentMoney -= Bank.costoftrain;
                 Bank.updateMoneyBox();
