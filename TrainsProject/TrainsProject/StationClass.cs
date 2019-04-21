@@ -10,11 +10,20 @@ namespace TrainsProject
         public Station(string name)
         {
             StationLocation = randomnumber.Next(0, mapSize+1);
-            while (usedLocation.Contains(StationLocation))
+            if(usedLocation.Count < StationMapGrid.Count)
             {
-                StationLocation = new Random().Next(0, mapSize + 1);
+                while (usedLocation.Contains(StationLocation))
+                {
+                    StationLocation = new Random().Next(0, mapSize + 1);
+                }
+                    usedLocation.Add(StationLocation);
             }
-            usedLocation.Add(StationLocation); 
+            else
+            {
+                Homepage.ConsoleTextBox.Text = "Sorry! You are out of room. You can only move trains now.";
+                Homepage.buyStationButton.Enabled = false;
+            }
+             
             Name = name;
         }
 

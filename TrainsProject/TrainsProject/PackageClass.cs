@@ -34,13 +34,17 @@ namespace TrainsProject
                 }
             }
         }
-        public static string packageManagement(string state, Train trainForMove = null)
+        public static string packageManagement(string state)
         {
             if (state == "PackageManagementComplete")
             {
                 Homepage.ConsoleTextBox.Text = "Alright, all done adding packages. Where do you want to go?";
                 return "MoveTrainDestination";
             }
+            return state;
+        }
+        public static string packageManagement(string state, Train trainForMove)
+        {
             if (state == "PackageManagement" && Homepage.packageSelectionDropDown.SelectedItem != null && trainForMove != null)
             {
                 if (trainForMove.Holding.Count + 1 < trainForMove.TrainCapacity && !trainForMove.Holding.Contains(trainForMove.TrainCurrentLocation.PackagesWaiting[Homepage.packageSelectionDropDown.SelectedIndex]))
