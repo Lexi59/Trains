@@ -46,6 +46,11 @@ namespace TrainsProject
                     Homepage.ConsoleTextBox.Text = "Sorry! You have to buy a station first!";
                     return null;
                 }
+                if(Bank.CurrentMoney - Bank.costoftrain < 0)
+                {
+                    Homepage.ConsoleTextBox.Text = "Sorry! You don't have enought money!";
+                    return null;
+                }
                 Homepage.ConsoleTextBox.Text = "You clicked yes! We bought you a Train. Please enter a name for it:";
                 Bank.CurrentMoney -= Bank.costoftrain;
                 Bank.updateMoneyBox();
