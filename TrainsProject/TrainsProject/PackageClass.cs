@@ -13,12 +13,11 @@ namespace TrainsProject
             PackageValue = RandomNumber.Next(0, 300);
             PackageDestinationStation = destination;
         }
-        //fields
-        public string PackageType;
-        public int PackageValue;
-        public Station PackageDestinationStation;
 
-        public static HomePage Homepage { get; set; }
+        public new static HomePage Homepage { get; set; }
+        public Station PackageDestinationStation { get; set; }
+        public int PackageValue { get; set; }
+        public string PackageType { get; set; }
 
         //methods
         public static void spawningPackages()

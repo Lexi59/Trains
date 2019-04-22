@@ -32,7 +32,7 @@ namespace TrainsProject
         private readonly Random randomnumber = new Random();
         private static int StationCapacity = 20;
 
-        public static HomePage Homepage { get; set; }
+        public new static HomePage Homepage { get; set; }
         public string Name { get; set; }
         public int StationLocation { get; set; }
         public List<Package> PackagesWaiting { get; set; } = new List<Package>();

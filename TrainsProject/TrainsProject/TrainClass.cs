@@ -14,15 +14,13 @@ namespace TrainsProject
             TrainCurrentLocation = startingStation;
         }
 
-        //fields
-        public string Name;
-        public Station TrainCurrentLocation;
-        public int TrainCapacity = 10;
-        public List<Package> Holding;
-        public int capacityUpgradeAmount = 5;
-
-        public static HomePage Homepage { get; set; }
+        public new static HomePage Homepage { get; set; }
         internal static Train TrainForMove { get; set; }
+        public string Name { get; set; }
+        public Station TrainCurrentLocation { get; set; }
+        public int TrainCapacity { get; set; } = 10;
+        public List<Package> Holding { get; set; }
+        public int CapacityUpgradeAmount { get; set; } = 5;
 
         //methods
         public static void updateTrainInfoBox()
@@ -143,7 +141,7 @@ namespace TrainsProject
                     Homepage.ConsoleTextBox.Text = "We couldn't find a train named " + Homepage.namingTextBox.Text.Trim();
                     return state;
                 }
-                selectedTrainforUpgrade.TrainCapacity += selectedTrainforUpgrade.capacityUpgradeAmount;
+                selectedTrainforUpgrade.TrainCapacity += selectedTrainforUpgrade.CapacityUpgradeAmount;
                 Homepage.ConsoleTextBox.Text = "Awesome! We have upgraded the train named " + Homepage.namingTextBox.Text.Trim() + " to a capacity of " + selectedTrainforUpgrade.TrainCapacity;
                 Homepage.namingTextBox.Text = null;
                 return null;
